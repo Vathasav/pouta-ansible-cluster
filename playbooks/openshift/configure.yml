@@ -38,8 +38,11 @@
   roles:
     - role: lvm_storage
 
-- name: Run OpenShift installation
-  include: ../../../openshift-ansible/playbooks/byo/config.yml
+#- name: Run OpenShift installation
+#  include: ../../../openshift-ansible/playbooks/byo/config.yml
+
+- name: Run NFS volume creation
+  include: ../../../openshift-ansible-tourunen/setup_lvm_nfs.yml
 
 - name: Copy custom templates to master-1
   hosts: masters[0]
