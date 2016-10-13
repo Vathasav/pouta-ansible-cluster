@@ -10,6 +10,13 @@
     - base
     - cluster_common
 
+- name: Configure cluster masters
+  hosts:
+    - masters
+  become: yes
+  roles:
+    - cluster_master
+
 - name: Configure openshift VMs
   hosts:
     - masters
@@ -28,7 +35,6 @@
     - masters
   become: yes
   roles:
-    - cluster_master
     - openshift_master
 
 - name: Prepare nfs server for OpenShift NFS playbook
@@ -37,17 +43,3 @@
   become: yes
   roles:
     - role: lvm_storage
-
-#- name: Run OpenShift installation
-#  include: ../../../openshift-ansible/playbooks/byo/config.yml
-
-- name: Run NFS volume creation
-  include: ../../../openshift-ansible-tourunen/setup_lvm_nfs.yml
-
-- name: Copy custom templates to master-1
-  hosts: masters[0]
-  tasks:
-    - name: copy default project template
-      template:
-        src: templates/project-request.yaml
-        dest: /home/cloud-user/project-request.yaml
