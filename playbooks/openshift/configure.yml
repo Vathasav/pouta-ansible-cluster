@@ -1,9 +1,9 @@
 - name: Configure cluster common parts
   hosts:
-    - masters
+#    - masters
     - nodes
-    - etcd
-    - lbs
+#    - etcd
+#    - lbs
     - nfsservers
   become: yes
   roles:
@@ -12,9 +12,9 @@
 
 - name: Configure openshift VMs
   hosts:
-    - masters
+#    - masters
     - nodes
-    - lbs
+#    - lbs
   become: yes
   roles:
     - role: lvm_storage
@@ -23,13 +23,13 @@
       docker_lvol_size: "50%FREE"
       docker_lvol_vg_name: "vg_data"
 
-- name: Configure openshift masters
-  hosts:
-    - masters
-  become: yes
-  roles:
-    - cluster_master
-    - openshift_master
+#- name: Configure openshift masters
+#  hosts:
+#    - masters
+#  become: yes
+#  roles:
+#    - cluster_master
+#    - openshift_master
 
 - name: Configure nfs server
   hosts:
